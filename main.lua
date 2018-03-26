@@ -1,6 +1,6 @@
-discordRPC = require "discordRPC"
+local discordRPC = require("discordRPC")
 
-local APPLICATION_ID = "<CHANGE ME>"
+local appId = require("applicationId")
 
 function discordRPC.ready()
     print("Discord: ready")
@@ -28,7 +28,7 @@ function discordRPC.joinRequest(userId, username, discriminator, avatar)
 end
 
 function love.load()
-    discordRPC.initialize(APPLICATION_ID, true)
+    discordRPC.initialize(appId, true)
     local now = os.time(os.date("*t"))
     presence = {
         state = "Looking to Play",
