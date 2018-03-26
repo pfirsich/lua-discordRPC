@@ -126,8 +126,10 @@ end
 
 function checkIntArg(arg, maxBits, argName, func, maybeNil)
     maxBits = math.min(maxBits or 32, 52) -- lua number (double) can only store integers < 2^53
-    local maxVal = 2^(maxBits-1) - 1 -- assuming signed integers, which, for now, are the only ones in use
-    assert(type(arg) == "number" and math.floor(arg) == arg and math.abs(arg) <= maxVal or (maybeNil and arg == nil),
+    local maxVal = 2^(maxBits-1) -- assuming signed integers, which, for now, are the only ones in use
+    assert(type(arg) == "number" and math.floor(arg) == arg
+        and arg < maxVal and arg >= -maxVal
+        or (maybeNil and arg == nil),
         string.format("Argument \"%s\" of function \"%s\" has to be a whole number <= %d",
             argName, func, maxVal))
 end
@@ -173,6 +175,8 @@ end
 
 function discordRPC.updatePresence(presence)
     local func = "discordRPC.updatePresence"
+    checkArg(presence, "table", "presence", func)
+
     -- -1 for string length because of 0-termination
     checkStrArg(presence.state, 127, "presence.state", func, true)
     checkStrArg(presence.details, 127, "presence.details", func, true)
