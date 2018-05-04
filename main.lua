@@ -2,8 +2,8 @@ local discordRPC = require("discordRPC")
 
 local appId = require("applicationId")
 
-function discordRPC.ready()
-    print("Discord: ready")
+function discordRPC.ready(userId, username, discriminator, avatar)
+    print(string.format("Discord: ready (%s, %s, %s, %s)", userId, username, discriminator, avatar))
 end
 
 function discordRPC.disconnected(errorCode, message)

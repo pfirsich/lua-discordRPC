@@ -1,5 +1,5 @@
 # lua-discordRPC
-LuaJIT bindings for the [Discord Rich Presence library](https://github.com/discordapp/discord-rpc) (v2.1.0).
+LuaJIT bindings for the [Discord Rich Presence library](https://github.com/discordapp/discord-rpc) (v3.3.0).
 
 # Usage
 To use this library, download the binaries of discord-rpc (or build them yourself) and make sure the dynamic library is in some location it can be loaded from (e.g. on Windows: https://msdn.microsoft.com/en-us/library/windows/desktop/ms682586(v=vs.85).aspx, usually just next to the executable).
@@ -29,8 +29,8 @@ You do not have to pass `handlers` to this function, instead you may define func
 **Notes about callbacks**:
 Just-In-Time compilation is disabled for callbacks (for reasons, see the comment in the implementation of `discordRPC.runCallbacks`), so try to avoid doing performance critical tasks in them.
 
-### `discordRPC.ready()`
-No arguments or expected return value
+### `discordRPC.ready(userId, username, discriminator, avatar)`
+`userId`, `username`, `discriminator` and `avatar` are all strings
 
 ### `discordRPC.errored(errorCode, message)`
 * `errorCode` is a number
@@ -70,6 +70,8 @@ No arguments or expected return value
 * `joinSecret` must be a string (max length: 127)
 * `spectateSecret` must be a string (max length: 127)
 * `instance` must be an integer (8 bit, signed)
+
+## `discordRPC.clearPresence()` (*Discord_ClearPresence*)
 
 ## `discordRPC.respond(userId, reply)` (*Discord_Respond*)
 * `userId` is a string
