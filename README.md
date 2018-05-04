@@ -1,5 +1,5 @@
 # lua-discordRPC
-LuaJIT bindings for the [Discord Rich Presence library](https://github.com/discordapp/discord-rpc)
+LuaJIT bindings for the [Discord Rich Presence library](https://github.com/discordapp/discord-rpc) (v2.1.0).
 
 # Usage
 To use this library, download the binaries of discord-rpc (or build them yourself) and make sure the dynamic library is in some location it can be loaded from (e.g. on Windows: https://msdn.microsoft.com/en-us/library/windows/desktop/ms682586(v=vs.85).aspx, usually just next to the executable).
