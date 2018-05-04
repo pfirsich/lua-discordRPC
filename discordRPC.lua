@@ -237,6 +237,10 @@ getmetatable(discordRPC.gcDummy).__gc = function()
     discordRPC.shutdown()
     ready_proxy:free()
     disconnected_proxy:free()
+    errored_proxy:free()
+    joinGame_proxy:free()
+    spectateGame_proxy:free()
+    joinRequest_proxy:free()
 end
 
 return discordRPC
