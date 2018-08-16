@@ -163,18 +163,17 @@ function discordRPC.shutdown()
 end
 
 function discordRPC.runCallbacks()
-    -- http://luajit.org/ext_ffi_semantics.html#callback :
-    -- One thing that's not allowed, is to let an FFI call into a C function (runCallbacks)
-    -- get JIT-compiled, which in turn calls a callback, calling into Lua again (i.e. discordRPC.ready).
-    -- Usually this attempt is caught by the interpreter first and the C function
-    -- is blacklisted for compilation.
-    -- solution:
-    -- Then you'll need to manually turn off JIT-compilation with jit.off() for
-    -- the surrounding Lua function that invokes such a message polling function.
-    jit.off()
     discordRPClib.Discord_RunCallbacks()
-    jit.on()
 end
+-- http://luajit.org/ext_ffi_semantics.html#callback :
+-- It is not allowed, to let an FFI call into a C function (runCallbacks)
+-- get JIT-compiled, which in turn calls a callback, calling into Lua again (e.g. discordRPC.ready).
+-- Usually this attempt is caught by the interpreter first and the C function
+-- is blacklisted for compilation.
+-- solution:
+-- "Then you'll need to manually turn off JIT-compilation with jit.off() for
+-- the surrounding Lua function that invokes such a message polling function."
+jit.off(discordRPC.runCallbacks)
 
 function discordRPC.updatePresence(presence)
     local func = "discordRPC.updatePresence"
