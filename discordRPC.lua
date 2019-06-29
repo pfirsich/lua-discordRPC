@@ -111,13 +111,13 @@ local joinRequest_proxy = ffi.cast("joinRequestPtr", function(request)
 end)
 
 -- helpers
-function checkArg(arg, argType, argName, func, maybeNil)
+local function checkArg(arg, argType, argName, func, maybeNil)
     assert(type(arg) == argType or (maybeNil and arg == nil),
         string.format("Argument \"%s\" to function \"%s\" has to be of type \"%s\"",
             argName, func, argType))
 end
 
-function checkStrArg(arg, maxLen, argName, func, maybeNil)
+local function checkStrArg(arg, maxLen, argName, func, maybeNil)
     if maxLen then
         assert(type(arg) == "string" and arg:len() <= maxLen or (maybeNil and arg == nil),
             string.format("Argument \"%s\" of function \"%s\" has to be of type string with maximum length %d",
@@ -127,7 +127,7 @@ function checkStrArg(arg, maxLen, argName, func, maybeNil)
     end
 end
 
-function checkIntArg(arg, maxBits, argName, func, maybeNil)
+local function checkIntArg(arg, maxBits, argName, func, maybeNil)
     maxBits = math.min(maxBits or 32, 52) -- lua number (double) can only store integers < 2^53
     local maxVal = 2^(maxBits-1) -- assuming signed integers, which, for now, are the only ones in use
     assert(type(arg) == "number" and math.floor(arg) == arg
